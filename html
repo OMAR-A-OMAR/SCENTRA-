@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCENTRA - Your Signature Scent DNA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        .luxury-font {
+            font-family: 'Cinzel', serif;
+        }
+        .gold-text {
+            color: #c5a880;
+        }
+        .gold-bg {
+            background: linear-gradient(135deg, #c5a880 0%, #a38558 100%);
+        }
+        .gold-border {
+            border-color: #c5a880;
+        }
+        .card-glow {
+            box-shadow: 0 0 15px rgba(197, 168, 128, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#c5a880] selection:text-black">
+
+    <header class="py-6 text-center border-b border-zinc-900">
+        <div class="luxury-font text-3xl tracking-widest gold-text font-bold">SCENTRA</div>
+        <p class="text-xs uppercase tracking-widest text-zinc-500 mt-1">Your Signature Scent DNA</p>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-12">
+        <div class="max-w-xl w-full mx-auto bg-[#111111] border border-zinc-800 p-8 rounded-lg card-glow text-center">
+            
+            <div id="welcome-screen" class="space-y-6">
+                <div class="text-zinc-500 text-xs tracking-widest luxury-font">A MAISON EXPERIENCE</div>
+                <h1 class="text-3xl md:text-4xl gold-text font-bold tracking-wide">اكتشف بصمتك العطرية الخاصة</h1>
+                <p class="text-zinc-400 text-sm md:text-base max-w-sm mx-auto leading-relaxed">
+                    رحلة قصيرة بين الذاكرة، الذوق، والمزاج لتصميم عطرك الفريد واختيار عائلتك العطرية بدقة.
+                </p>
+                <div class="pt-6">
+                    <button onclick="startQuiz()" class="gold-bg text-black font-semibold px-8 py-3 rounded shadow-lg hover:opacity-90 transition-all w-full md:w-auto luxury-font tracking-widest text-sm">
+                        BEGIN · ابدأ الاختبار
+                    </button>
+                </div>
+            </div>
+
+            <div id="quiz-screen" class="hidden space-y-6">
+                <div class="flex justify-between items-center text-xs text-zinc-500 luxury-font border-b border-zinc-900 pb-4">
+                    <span id="question-number">QUESTION 1 OF 4</span>
+                    <span class="gold-text" id="progress-percent">25%</span>
+                </div>
+                
+                <h2 id="question-text" class="text-xl md:text-2xl font-semibold text-white pt-2"></h2>
+                
+                <div id="options-container" class="grid grid-cols-1 gap-3 pt-4">
+                    </div>
+            </div>
+
+            <div id="loading-screen" class="hidden space-y-6 py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 gold-border mx-auto"></div>
+                <h2 class="text-xl gold-text font-medium tracking-wide">جاري تحليل بصمتك العطرية...</h2>
+                <p class="text-xs text-zinc-500 uppercase tracking-widest">Engineering your fragrance profile</p>
+            </div>
+
+            <div id="result-screen" class="hidden text-right space-y-8">
+                <div class="text-center border-b border-zinc-950 pb-4">
+                    <div class="luxury-font text-xs gold-text tracking-widest mb-1">YOUR SIGNATURE AWAITS</div>
+                    <h2 class="text-2xl font-bold text-white">بصمتك العطرية جاهزة</h2>
+                </div>
+
+                <div class="bg-zinc-900/50 p-5 rounded border border-zinc-800/80 space-y-2">
+                    <span class="text-xs gold-text font-semibold tracking-wider uppercase luxury-font">الترشيح العالمي للمناسبة:</span>
+                    <h3 id="global-perfume-name" class="text-xl font-bold text-white pt-1">---</h3>
+                    <p id="global-perfume-desc" class="text-sm text-zinc-400 leading-relaxed"></p>
+                </div>
+
+                <div class="space-y-4">
+                    <span class="text-xs gold-text font-semibold tracking-wider uppercase luxury-font">تركيبة عطرك الخاص المصمم لك:</span>
+                    
+                    <div class="border border-zinc-800 rounded p-5 space-y-4 bg-black/30">
+                        <div class="flex justify-between items-start border-b border-zinc-900 pb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-white">النوتات العليا (إفتتاحية العطر)</h4>
+                                <p id="top-notes" class="text-xs text-zinc-400 mt-1">---</p>
+                            </div>
+                            <span class="text-xs gold-text bg-zinc-900 px-2 py-1 rounded border border-zinc-800 luxury-font">Top 20%</span>
+                        </div>
+
+                        <div class="flex justify-between items-start border-b border-zinc-900 pb-3">
+                            <div>
+                                <h4 class="text-sm font-bold text-white">النوتات الوسطى (قلب العطر)</h4>
+                                <p id="heart-notes" class="text-xs text-zinc-400 mt-1">---</p>
+                            </div>
+                            <span class="text-xs gold-text bg-zinc-900 px-2 py-1 rounded border border-zinc-800 luxury-font">Heart 50%</span>
+                        </div>
+
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="text-sm font-bold text-white">نوتات القاعدة (ثبات العطر)</h4>
+                                <p id="base-notes" class="text-xs text-zinc-400 mt-1">---</p>
+                            </div>
+                            <span class="text-xs gold-text bg-zinc-900 px-2 py-1 rounded border border-zinc-800 luxury-font">Base 30%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                    <button onclick="resetQuiz()" class="border gold-border gold-text px-6 py-3 rounded text-sm font-medium hover:bg-zinc-900 transition-all flex-1 text-center">
+                        إعادة الاختبار
+                    </button>
+                    <button onclick="alert('سيتم حفظ البصمة قريباً!')" class="gold-bg text-black px-6 py-3 rounded text-sm font-bold shadow-md hover:opacity-90 transition-all flex-1 text-center">
+                        حفظ ومشاركة البصمة
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-4 text-center border-t border-zinc-900 text-[10px] text-zinc-600 luxury-font tracking-widest">
+        EST. 2026 · SCENTRA MAISON
+    </footer>
+
+    <script>
+        // هيكل الأسئلة والخيارات والرموز لربطها بالنتائج
+        const quizData = [
+            {
+                question: "ما هي المناسبة الأساسية التي تريد العطر لها؟",
+                options: [
+                    { text: "اجتماعات عمل رسمية ونهارية", value: "formal" },
+                    { text: "سهرات خاصة ومناسبات ليلية فاخرة", value: "night" },
+                    { text: "الاستخدام اليومي والنادي الرياضي", value: "casual" },
+                    { text: "مناسبة رومانسية أو لقاء قريب", value: "romantic" }
+                ]
+            },
+            {
+                question: "أي الأجواء والبيئات تفضل أن يبرز فيها عادتاً؟",
+                options: [
+                    { text: "الأجواء الباردة والمغلقة المكيفة", value: "cold" },
+                    { text: "الأجواء الصيفية المفتوحة والدافئة", value: "warm" }
+                ]
+            },
+            {
+                question: "كيف تحب أن تكون شخصية عطرك وطابعه الفرضي؟",
+                options: [
+                    { text: "غامض، دافئ، وله حضور قوي وجريء", value: "heavy" },
+                    { text: "منعش، نظيف، يبعث على الحيوية والنشاط", value: "fresh" },
+                    { text: "أنيق، كلاسيكي، وهادئ جداً", value: "subtle" }
+                ]
+            },
+            {
+                question: "اختر المكون أو العائلة الأكثر قرباً لقلبك:",
+                options: [
+                    { text: "الأخشاب والعود والجلود الفاخرة", value: "woody" },
+                    { text: "الحمضيات، البرغموت، والروائح البحرية", value: "citrus" },
+                    { text: "الفانيليا، التوابل الدافئة، والعنبر", value: "oriental" },
+                    { text: "الأزهار النادرة، اللافندر، والمسك النقي", value: "floral" }
+                ]
+            }
+        ];
+
+        // قاعدة بيانات العطور العالمية والتركيبات بناءً على دمج الإجابات الأساسية (المناسبة + العائلة)
+        const database = {
+            "formal-woody": {
+                globalName: "Bleu de Chanel (Eau de Parfum) أو Terre d'Hermès",
+                desc: "مزيج يجمع بين الاحترافية والهيبة بفضل نوتات الأخشاب والبرغموت ليعطي انطباعاً بالثقة والجدية.",
+                top: "البرغموت، الجريب فروت، الفلفل الوردي",
+                heart: "خشب الأرز، نجيل الهند (Vetiver)، الياسمين",
+                base: "البخور، الباتشولي، خشب الصندل، العنبر"
+            },
+            "formal-citrus": {
+                globalName: "Creed Aventus",
+                desc: "عطر القادة الفاخر، يمنحك حضوراً نهارياً ساحراً ومنعشاً مع لمسة خشبية رسمية.",
+                top: "الأناناس، البرغموت، التفاح، الكشمش الأسود",
+                heart: "أخشاب بيرش (Birch)، الباتشولي، الياسمين المغربي",
+                base: "المسك، طحلب البلوط، العنبر، الفانيليا"
+            },
+            "night-woody": {
+                globalName: "Tom Ford Oud Wood",
+                desc: "قمة الفخامة والغموض للسهرات الليلية، عطر غني بالعود النادر والأخشاب الثمينة الحافلة بالعمق.",
+                top: "الهيل، الفلفل الوردي، خشب الورد البرازيلي",
+                heart: "العود الكمبودي، خشب الصندل، نجيل الهند",
+                base: "الفانيليا، العنبر، دوق التونكا"
+            },
+            "night-oriental": {
+                globalName: "Kilian Angels' Share أو Dior Ambre Nuit",
+                desc: "عطر دافئ وساحر جداً للمناسبات الكبرى، يجمع بين التوابل والعمق الشرقي بطابع حديث فاخر.",
+                top: "الكونياك، القرفة، اللوز",
+                heart: "دوق التونكا، خشب البلوط، الميرمية",
+                base: "الفانيليا، خشب الصندل، الباتشولي"
+            },
+            "casual-citrus": {
+                globalName: "Acqua Di Gio Profondo",
+                desc: "عطر مائي منعش بامتياز، مناسب للحركة والنشاط اليومي ويعطي إحساساً بالنظافة والحيوية المطلقة.",
+                top: "الملاحظات البحرية، الماندارين الأخضر، البرغموت",
+                heart: "إكليل الجبل (Rosemary)، اللافندر، عشب السرو",
+                base: "المعدن، الباتشولي، المسك"
+            },
+            "casual-floral": {
+                globalName: "Prada L'Homme",
+                desc: "عطر صابوني نظيف وأنيق جداً، يعتمد على السوسن واللافندر ليعطيك رائحة تشبه الملابس الفاخرة والنظيفة طوال اليوم.",
+                top: "زهر البرتقال، الفلفل الأسود",
+                heart: "سوسن فلورنسا (Iris)، العنبر، اللافندر",
+                base: "خشب الأرز، الباتشولي"
+            },
+            "romantic-oriental": {
+                globalName: "Parfums de Marly Layton",
+                desc: "عطر رومانسي جذاب للغاية، يوازن بين انتعاش التفاح والبرغموت ودفيء الفانيليا والهيل.",
+                top: "التفاح، الخزامى (اللافندر)، البرغموت، الماندارين",
+                heart: "إبرة الراعي، الياسمين، البنفسج",
+                base: "الفانيليا، الهيل، خشب الصندل، الفلفل الأسود"
+            }
+        };
+
+        // الافتراضي في حال لم يتطابق دمج نادر جداً
+        const defaultResult = {
+            globalName: "Dior Sauvage (Eau de Parfum)",
+            desc: "العطر الأكثر تنوعاً وجاذبية، يتناسب مع كافة الأوقات والمناسبات بفضل تركيبته المتوازنة بين الانتعاش والتوابل الدافئة.",
+            top: "البرغموت الكالابري، الفلفل الأسود",
+            heart: "خزامى، فلفل سيتشوان، الباتشولي، نجيل الهند",
+            base: "الأمبروكسان، خشب الأرز، لابدانيوم"
+        };
+
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+
+        // بدء الاختبار
+        function startQuiz() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            showQuestion();
+        }
+
+        // عرض السؤال الحالي
+        function showQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            
+            // تحديث نصوص الواجهة
+            document.getElementById('question-number').innerText = `QUESTION ${currentQuestionIndex + 1} OF ${quizData.length}`;
+            document.getElementById('progress-percent').innerText = `${Math.round(((currentQuestionIndex + 1) / quizData.length) * 100)}%`;
+            document.getElementById('question-text').innerText = currentQuestion.question;
+            
+            // مسح وحقن الخيارات
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = "w-full text-right p-4 rounded bg-zinc-900 border border-zinc-800 hover:border-[#c5a880] text-sm text-zinc-300 hover:text-white transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-[#c5a880]";
+                button.innerText = option.text;
+                button.onclick = () => handleAnswer(currentQuestionIndex, option.value);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // تسجيل الإجابة والانتقال للسؤال التالي
+        function handleAnswer(questionIndex, value) {
+            // تخزين الإجابة بناءً على مؤشر السؤال
+            userAnswers[questionIndex] = value;
+            
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                processResults();
+            }
+        }
+
+        // معالجة النتائج وإظهار شاشة التحميل
+        function processResults() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('loading-screen').classList.remove('hidden');
+            
+            // محاكاة تحليل هندسي يستغرق ثانيتين لمنح تجربة مستخدم فاخرة ومصداقية
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+                document.getElementById('result-screen').classList.remove('hidden');
+                
+                // استخراج المفاتيح لتركيب النتيجة
+                const occasion = userAnswers[0]; // formal, night, casual, romantic
+                const family = userAnswers[3];    // woody, citrus, oriental, floral
+                
+                const lookupKey = `${occasion}-${family}`;
+                const result = database[lookupKey] || defaultResult;
+                
+                // حقن البيانات في شاشة النتيجة
+                document.getElementById('global-perfume-name').innerText = result.globalName;
+                document.getElementById('global-perfume-desc').innerText = result.desc;
+                document.getElementById('top-notes').innerText = result.top;
+                document.getElementById('heart-notes').innerText = result.heart;
+                document.getElementById('base-notes').innerText = result.base;
+                
+            }, 2000);
+        }
+
+        // إعادة تشغيل الاختبار
+        function resetQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
